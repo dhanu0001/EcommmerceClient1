@@ -7,6 +7,3 @@ before_install:
 
 script:
   - docker run -e CI=true orezimeteaching/client npm test -- --coverage
-# after_sucess:
-#   #build production grade dockerfile
-#   - docker build -t orezimeteaching/client .

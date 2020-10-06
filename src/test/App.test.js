@@ -7,11 +7,3 @@ it("renders without crashing", () => {
   ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
-// import React from "react";
-// var ReactTestUtils = require("react-dom/test-utils");
-// // import ReactDOM from "react-dom";
-// import App from "../App";
-
-// it("renders without crashing", () => {
-//   ReactTestUtils.isDOMComponent(App);
-// });
