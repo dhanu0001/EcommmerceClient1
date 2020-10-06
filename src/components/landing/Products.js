@@ -34,7 +34,7 @@ class Products extends Component {
   };
   render() {
     const { products } = this.state;
-    console.log(products);
+    // console.log(products);
     return (
       <div className="container">
         <div className="row">
