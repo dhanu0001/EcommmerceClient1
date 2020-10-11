@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 
 const port = process.env.PORT || 8080;
-
+console.log(port);
 //Static file declaration
 app.use(express.static(path.join(__dirname, "/build")));
 
