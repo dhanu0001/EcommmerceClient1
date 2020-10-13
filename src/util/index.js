@@ -6,7 +6,7 @@ const isDevelopment = window.location.hostname.includes("localhost");
 const getServer = () => {
   return isDevelopment
     ? "http://localhost:5000"
-    : "https://eshop-292223.wl.r.appspot.com/";
+    : "https://eshop-292223.wl.r.appspot.com";
 };
 
 const decodeUser = () => {
