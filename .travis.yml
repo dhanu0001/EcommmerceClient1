@@ -14,7 +14,7 @@ after_sucess:
 
   - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud auth activate-service-account --key-file serviceAccount.json
-  - gcloud config set project radiant-land-292215
+  - gcloud config set project eshop-292223
   - gcloud config set compute/zone us-west2-a
   #build production grade dockerfile
   - docker build -t orezimeteaching/client .
