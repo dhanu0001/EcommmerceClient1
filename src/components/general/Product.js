@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const { Meta } = Card;
 
-const Product = ({ product, description, buttonName, link }) => {
+const Product = ({ product, description, uploadImages, link }) => {
   return (
     <div style={{ padding: "10px" }}>
       <Link to={link}>
@@ -20,7 +20,9 @@ const Product = ({ product, description, buttonName, link }) => {
           }
         >
           <Meta title={product.name} description={description} />
-          <Button type="primary">{buttonName}</Button>
+          <Link className="btn btn-primary" to={uploadImages}>
+            Add Images
+          </Link>
         </Card>
       </Link>
     </div>

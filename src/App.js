@@ -21,6 +21,7 @@ import AddProduct from "./components/dashboard/components/AddProduct";
 import Products from "./components/dashboard/components/Products";
 import AddProfile from "./components/dashboard/components/AddProfile";
 import Profile from "./components/dashboard/components/Profile";
+import AddImages from "./components/dashboard/components/AddImages";
 
 //CUSTOMERS COMPONENTS
 import Cart from "./components/customers/Cart";
@@ -87,6 +88,11 @@ function App(props) {
               component={() => (
                 <Dashboard {...props} nestedRoute={AddProfile} />
               )}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard/products/:id/addImages"
+              component={() => <Dashboard {...props} nestedRoute={AddImages} />}
             />
             <ProtectedRoute exact path="/cart" component={Cart} />
             <Route exact path="/register" component={Register} />
