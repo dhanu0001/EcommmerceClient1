@@ -128,11 +128,15 @@ class productDetails extends Component {
                   <p className="lead" style={{ margin: "0" }}>
                     Features:
                   </p>
-                  <ul style={{ marginLeft: "5%", marginTop: "0" }}>
-                    {product.features.map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
+                  {product.features ? (
+                    <ul style={{ marginLeft: "5%", marginTop: "0" }}>
+                      {product.features.map((feature, index) => (
+                        <li key={index}>{feature}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="lead">No feature Listed</p>
+                  )}
                   <Rate
                     disabled
                     allowHalf
@@ -162,11 +166,15 @@ class productDetails extends Component {
               <p className="lead" style={{ margin: "0" }}>
                 Main Features of Product:
               </p>
-              <ul style={{ marginLeft: "5%", marginTop: "0" }}>
-                {product.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
+              {product.features ? (
+                <ul style={{ marginLeft: "5%", marginTop: "0" }}>
+                  {product.features.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="lead">No Feature Listed</p>
+              )}
             </Fragment>
           ) : (
             <Spin size="large" />

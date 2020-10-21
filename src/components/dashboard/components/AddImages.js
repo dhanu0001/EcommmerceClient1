@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { getServer } from "../../../util";
 import axios from "axios";
+import { notification } from "antd";
 
 class AddImages extends Component {
   uploadFile = (e) => {
@@ -17,8 +18,15 @@ class AddImages extends Component {
       data,
       config: { headers: { "Content-Type": "multipart/form-data" } },
     })
-      .then(() => {
-        console.log("success");
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          notification.info({
+            message: `Image Upload`,
+            description: res.data.msg,
+            placement: "topRight",
+          });
+        }
       })
       .catch((err) => {
         console.log(err);

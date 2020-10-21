@@ -36,7 +36,7 @@ class Products extends Component {
     const { products } = this.state;
     // console.log(products);
     return (
-      <div className="container">
+      <div className="container-flex">
         <div className="row">
           {products.map((product, index) => (
             <Product
@@ -44,6 +44,7 @@ class Products extends Component {
               link={`products/${product._id}`}
               product={product}
               description={this.productDetails(product)}
+              thumbnail={product.thumbnail}
             />
           ))}
         </div>

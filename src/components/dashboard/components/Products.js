@@ -45,6 +45,8 @@ class Products extends Component {
             product={product}
             description={this.productDetails(product)}
             uploadImages={`/dashboard/products/${product._id}/addImages`}
+            thumbnail={product.thumbnail}
+            showBtn={true}
           />
         ))}
       </div>
