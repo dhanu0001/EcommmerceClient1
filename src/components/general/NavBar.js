@@ -42,7 +42,7 @@ const NavBar = ({ auth: { isAuthenticated, user }, logout }) => {
     </ul>
   );
   return (
-    <nav className="main-navbar bg-main">
+    <nav className="main-navbar bg-main" style={{ zIndex: "999" }}>
       <h1>
         <Link to="">
           <i className="fas fa-store"></i> e-Shop

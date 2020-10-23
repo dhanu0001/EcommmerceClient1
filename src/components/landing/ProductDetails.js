@@ -9,11 +9,12 @@ import Navbar from "../../components/general/NavBar";
 import { decodeUser } from "../../util";
 
 class productDetails extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       product: null,
       visible: false,
+      images: [],
     };
   }
 
@@ -25,7 +26,10 @@ class productDetails extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.product) {
       const product = nextProps.product;
-      this.setState({ product });
+      let images = [];
+      images.push(product.thumbnail);
+      images = [...images, ...product.images];
+      this.setState({ product, images });
     }
   }
 
@@ -109,7 +113,7 @@ class productDetails extends Component {
   }
 
   render() {
-    const { product } = this.state;
+    const { product, images } = this.state;
     return (
       <Fragment>
         <Navbar />
@@ -117,8 +121,30 @@ class productDetails extends Component {
           {product ? (
             <Fragment>
               <div className="row">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <img src="/assets/images/eshop.jpg" alt="product" />
+                <div
+                  id="carousel-thumb"
+                  className="carousel slide carousel-fade carousel-thumbnails"
+                  data-ride="carousel"
+                  style={{ width: "500px" }}
+                >
+                  <div className="carousel-inner" role="listbox">
+                    {images.map((image, index) => (
+                      <div
+                        className={
+                          index === 0
+                            ? "carousel-item active"
+                            : "carousel-item "
+                        }
+                        key={index}
+                      >
+                        <img
+                          className="d-block w-100"
+                          src={image}
+                          alt="First slide"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   <h1 style={{ margin: "0" }}>{product.name}</h1>
@@ -147,13 +173,13 @@ class productDetails extends Component {
                     Quantity: {product.quantity}
                   </p>
                   <h1>${product.price}</h1>
-                  <Button
-                    type="primary"
+                  <button
+                    className="btn btn-primary"
                     onClick={(_) => this.addProductToCart(product)}
                   >
                     {" "}
                     Add to Cart
-                  </Button>
+                  </button>
                 </div>
               </div>
               <br />

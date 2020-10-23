@@ -73,7 +73,6 @@ class AddImages extends Component {
   };
 
   render() {
-    console.log(this.props.match.params.id);
     return (
       <div>
         <p className="lead">Update your product thumbnail</p>
