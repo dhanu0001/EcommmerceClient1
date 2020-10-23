@@ -566,3 +566,7 @@ button {
 .empty-cart-border{
   border: solid var(--primary-color);
 }
+
+.social_icons{
+margin: 10px;
+}

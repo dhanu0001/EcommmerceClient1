@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { isEmpty } from "lodash";
 import { getProduct } from "../../actions/productAction";
 import { addToCart } from "../../actions/cartActions";
+import { getProfile } from "../../actions/profileActions";
 import Navbar from "../../components/general/NavBar";
 import { decodeUser } from "../../util";
 
@@ -15,6 +16,7 @@ class productDetails extends Component {
       product: null,
       visible: false,
       images: [],
+      gotProfile: false,
     };
   }
 
@@ -30,6 +32,10 @@ class productDetails extends Component {
       images.push(product.thumbnail);
       images = [...images, ...product.images];
       this.setState({ product, images });
+      if (!this.state.gotProfile) {
+        this.props.getProfile(product.userId);
+        this.setState({ gotProfile: true });
+      }
     }
   }
 
@@ -114,6 +120,46 @@ class productDetails extends Component {
 
   render() {
     const { product, images } = this.state;
+    const { profile } = this.props;
+    console.log(this.props.profile);
+    let facebook,
+      instagram,
+      twitter,
+      linkedin = "";
+    if (profile) {
+      if (
+        profile.socialMedia.facebook &&
+        !profile.socialMedia.facebook.substring(0, 4).includes("http")
+      ) {
+        facebook = `http${profile.socialMedia.facebook}`;
+      } else {
+        facebook = profile.socialMedia.facebook;
+      }
+      if (
+        profile.socialMedia.instagram &&
+        !profile.socialMedia.instagram.substring(0, 4).includes("http")
+      ) {
+        instagram = `http${profile.socialMedia.instagram}`;
+      } else {
+        instagram = profile.socialMedia.instagram;
+      }
+      if (
+        profile.socialMedia.twitter &&
+        !profile.socialMedia.twitter.substring(0, 4).includes("http")
+      ) {
+        twitter = `http${profile.socialMedia.twitter}`;
+      } else {
+        twitter = profile.socialMedia.twitter;
+      }
+      if (
+        profile.socialMedia.linkedin &&
+        !profile.socialMedia.linkedin.substring(0, 4).includes("http")
+      ) {
+        linkedin = `http${profile.socialMedia.linkedin}`;
+      } else {
+        linkedin = profile.socialMedia.linkedin;
+      }
+    }
     return (
       <Fragment>
         <Navbar />
@@ -205,7 +251,113 @@ class productDetails extends Component {
           ) : (
             <Spin size="large" />
           )}
+          <br />
+          <h3>Seller Information</h3>
+          {profile && (
+            <Fragment>
+              <nav>
+                <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a
+                    className="nav-item nav-link active"
+                    id="nav-home-tab"
+                    data-toggle="tab"
+                    href="#nav-home"
+                    role="tab"
+                    aria-controls="nav-home"
+                    aria-selected="true"
+                  >
+                    Home
+                  </a>
+                  <a
+                    className="nav-item nav-link"
+                    id="nav-profile-tab"
+                    data-toggle="tab"
+                    href="#nav-profile"
+                    role="tab"
+                    aria-controls="nav-profile"
+                    aria-selected="false"
+                  >
+                    Social Media
+                  </a>
+                  <a
+                    className="nav-item nav-link"
+                    id="nav-contact-tab"
+                    data-toggle="tab"
+                    href="#nav-contact"
+                    role="tab"
+                    aria-controls="nav-contact"
+                    aria-selected="false"
+                  >
+                    Contact
+                  </a>
+                </div>
+              </nav>
+              <div className="tab-content" id="nav-tabContent">
+                <div
+                  className="tab-pane fade show active"
+                  id="nav-home"
+                  role="tabpanel"
+                  aria-labelledby="nav-home-tab"
+                >
+                  <br />
+                  <h4 style={{ textDecoration: "underline" }}>About Seller</h4>
+                  {profile.bio && <p className="lead">{profile.bio}</p>}
+                </div>
+                <div
+                  className="tab-pane fade"
+                  id="nav-profile"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab"
+                >
+                  <br />
+                  <h4>Follow Us with the links below:</h4>
+                  <div className="row">
+                    {facebook && (
+                      <span className="social_icons">
+                        <a href={facebook} target="_blank">
+                          <i className="fab fa-facebook fa-2x"></i>
+                        </a>
+                      </span>
+                    )}
+                    {instagram && (
+                      <span className="social_icons">
+                        <a href={instagram} target="_blank">
+                          <i className="fab fa-instagram fa-2x"></i>
+                        </a>
+                      </span>
+                    )}
+                    {twitter && (
+                      <span className="social_icons">
+                        <a href={twitter} target="_blank">
+                          <i className="fab fa-twitter fa-2x"></i>
+                        </a>
+                      </span>
+                    )}
+                    {linkedin && (
+                      <span className="social_icons">
+                        <a href={linkedin} target="_blank">
+                          <i className="fab fa-linkedin fa-2x"></i>
+                        </a>
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div
+                  className="tab-pane fade"
+                  id="nav-contact"
+                  role="tabpanel"
+                  aria-labelledby="nav-contact-tab"
+                >
+                  <br />
+                  {profile.address && (
+                    <p className="lead">Address: {profile.address}</p>
+                  )}
+                </div>
+              </div>
+            </Fragment>
+          )}
         </div>
+
         {product && this.registerModal(product)}
       </Fragment>
     );
@@ -214,8 +366,9 @@ class productDetails extends Component {
 
 const mapStateToProps = (state) => ({
   product: state.products.product,
+  profile: state.profile.profile,
 });
 
-export default connect(mapStateToProps, { getProduct, addToCart })(
+export default connect(mapStateToProps, { getProduct, addToCart, getProfile })(
   productDetails
 );
