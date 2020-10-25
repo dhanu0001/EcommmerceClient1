@@ -50,6 +50,7 @@ class Cart extends Component {
     return (
       <Fragment>
         <Navbar />
+        <br />
         <div className="container" style={{ textAlign: "center" }}>
           {isEmpty(cart.products) ? (
             <div className="empty-cart-border">
@@ -93,7 +94,7 @@ class Cart extends Component {
                             <Avatar
                               shape="square"
                               size={100}
-                              src="/assets/images/eshop.jpg"
+                              src={item.thumbnail}
                             />
                           }
                           title={item.name}
@@ -113,13 +114,18 @@ class Cart extends Component {
                 <h4>{`Total: $ ${this.calculateTotal()}`}</h4>
                 <Payment cart={cart} total={this.calculateTotal()} />
               </div>
+              <div style={{ textAlign: "center" }}>
+                {cart.products && (
+                  <Link to="/" className="btn btn-primary">
+                    Keep Shopping
+                  </Link>
+                )}
+              </div>
             </div>
           )}
-          {cart.products && (
-            <Link to="/" className="btn btn-primary">
-              Keep Shopping
-            </Link>
-          )}
+          <br />
+
+          <br />
         </div>
       </Fragment>
     );
